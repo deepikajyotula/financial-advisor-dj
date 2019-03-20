@@ -125,6 +125,21 @@ public class PersonalizedPortfolioServiceImpl implements PersonalizedPortfolioSe
 	}
 	
 	/**
+	 * all are processed when all elements of the array have 0 value
+	 * 
+	 * @param arr
+	 * @return
+	 */
+	private static boolean checkAllProcessed(double[] arr) {
+		for(int i=0; i<arr.length; i++) {
+			if(arr[i] != 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
 	 * Generates a String for the Transfer of amounts to be done between investment categories
 	 * ensuring 
 	 * the number of transactions recommended to be minimum possible to match the ideal portfolio.
@@ -136,19 +151,10 @@ public class PersonalizedPortfolioServiceImpl implements PersonalizedPortfolioSe
 		StringBuffer sb = new StringBuffer();
 		
 		boolean allProcessed = false;
-		
-		Set<Integer> processedKeySet = new HashSet<>(); //unique elements
-		
+				
 		while( !allProcessed) {
 			
-			for(int i=0; i<arr.length; i++) {
-				if(arr[i] == 0) {
-					processedKeySet.add(i);
-					if(processedKeySet.size() == 5) {
-						allProcessed = true;
-					}
-				}
-			}
+			allProcessed = checkAllProcessed(arr);
 		
 			if( !allProcessed) {				
 				int maxIndex = 0;
